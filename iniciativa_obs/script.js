@@ -2,10 +2,18 @@ const TOTAL = 4;
 let ordem = [];
 let turnoAtual = 0;
 
-// CANAL COMPARTILHADO (ESSENCIAL PRO OBS)
-const canal = new BroadcastChannel("iniciativa_rpg");
+/* =========================
+   CANAL SEGURO (OBS SAFE)
+   ========================= */
+let canal = null;
 
-/* ===== SALVAR / ORDENAR ===== */
+if ("BroadcastChannel" in window) {
+  canal = new BroadcastChannel("iniciativa_rpg");
+}
+
+/* =========================
+   CONTROLE
+   ========================= */
 function salvar() {
   ordem = [];
 
@@ -20,37 +28,25 @@ function salvar() {
   ordem.sort((a, b) => b.roll - a.roll);
   turnoAtual = 0;
 
-  canal.postMessage({
-    type: "INIT",
-    ordem,
-    turnoAtual
-  });
+  canal?.postMessage({ type: "INIT", ordem, turnoAtual });
 }
 
-/* ===== PRÓXIMO ===== */
 function proximo() {
   if (!ordem.length) return;
   turnoAtual = (turnoAtual + 1) % ordem.length;
-
-  canal.postMessage({
-    type: "TURN",
-    turnoAtual
-  });
+  canal?.postMessage({ type: "TURN", turnoAtual });
 }
 
-/* ===== VOLTAR ===== */
 function voltar() {
   if (!ordem.length) return;
   turnoAtual = (turnoAtual - 1 + ordem.length) % ordem.length;
-
-  canal.postMessage({
-    type: "TURN",
-    turnoAtual
-  });
+  canal?.postMessage({ type: "TURN", turnoAtual });
 }
 
-/* ===== VISUALIZADOR ===== */
-if (document.body.classList.contains("obs")) {
+/* =========================
+   VISUALIZADOR
+   ========================= */
+if (document.body.classList.contains("obs") && canal) {
   canal.onmessage = (e) => {
     if (e.data.type === "INIT") {
       criarColuna(e.data.ordem);
@@ -63,7 +59,9 @@ if (document.body.classList.contains("obs")) {
   };
 }
 
-/* ===== CRIAR PORTRAITS ===== */
+/* =========================
+   RENDER
+   ========================= */
 function criarColuna(ordem) {
   const coluna = document.getElementById("coluna");
   coluna.innerHTML = "";
@@ -80,15 +78,15 @@ function criarColuna(ordem) {
   });
 }
 
-/* ===== ATIVA COM ANIMAÇÃO (OBS SAFE) ===== */
+/* =========================
+   ANIMAÇÃO OBS SAFE
+   ========================= */
 function ativar(index) {
   const portraits = document.querySelectorAll(".portrait");
-
   portraits.forEach(p => p.classList.remove("ativo"));
 
   if (!portraits[index]) return;
 
-  // força frame intermediário (CRÍTICO PRO OBS)
   void portraits[index].offsetWidth;
 
   setTimeout(() => {
