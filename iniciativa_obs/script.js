@@ -1,67 +1,86 @@
-/* =========================
-   DADOS PADRÃO (ANTI-TELA VAZIA)
-   ========================= */
-
-const jogadoresPadrao = [
-  { nome: "Jogador 1", rolagem: 0, img: "portraits/p1.png" },
-  { nome: "Jogador 2", rolagem: 0, img: "portraits/p2.png" },
-  { nome: "Jogador 3", rolagem: 0, img: "portraits/p3.png" },
-  { nome: "Jogador 4", rolagem: 0, img: "portraits/p4.png" }
-];
+const TOTAL = 4;
+let ordem = [];
+let turnoAtual = 0;
 
 /* =========================
-   SALVAR ORDEM (CONTROLE)
+   SALVAR / ORDENAR INICIATIVA
    ========================= */
-
 function salvar() {
-  let jogadores = [];
+  ordem = [];
 
-  for (let i = 0; i < 4; i++) {
-    jogadores.push({
-      nome: document.getElementById("n" + i).value,
-      rolagem: Number(document.getElementById("r" + i).value),
-      img: document.getElementById("i" + i).value
+  for (let i = 0; i < TOTAL; i++) {
+    ordem.push({
+      nome: document.getElementById(`n${i}`).value,
+      roll: parseInt(document.getElementById(`r${i}`).value) || 0,
+      img: document.getElementById(`i${i}`).value
     });
   }
 
-  jogadores.sort((a, b) => b.rolagem - a.rolagem);
+  // ordena do maior para o menor
+  ordem.sort((a, b) => b.roll - a.roll);
 
-  localStorage.setItem("jogadores", JSON.stringify(jogadores));
-  localStorage.setItem("turno", "0");
+  turnoAtual = 0;
+
+  // envia para o visualizador
+  window.postMessage(
+    {
+      type: "INIT",
+      ordem,
+      turnoAtual
+    },
+    "*"
+  );
 }
 
 /* =========================
    PRÓXIMO TURNO
    ========================= */
-
 function proximo() {
-  let turno = Number(localStorage.getItem("turno") || 0);
-  turno = (turno + 1) % 4;
-  localStorage.setItem("turno", turno.toString());
+  if (ordem.length === 0) return;
+
+  turnoAtual = (turnoAtual + 1) % ordem.length;
+
+  window.postMessage(
+    {
+      type: "NEXT",
+      turnoAtual
+    },
+    "*"
+  );
 }
 
 /* =========================
-   RENDER (VISUALIZADOR)
+   VISUALIZADOR
    ========================= */
+if (document.body.classList.contains("obs")) {
+  window.addEventListener("message", (event) => {
+    if (!event.data) return;
 
-function render() {
+    if (event.data.type === "INIT") {
+      criarColuna(event.data.ordem);
+      ativar(event.data.turnoAtual);
+    }
+
+    if (event.data.type === "NEXT") {
+      ativar(event.data.turnoAtual);
+    }
+  });
+}
+
+/* =========================
+   CRIA OS PORTRAITS
+   ========================= */
+function criarColuna(ordem) {
   const coluna = document.getElementById("coluna");
-  if (!coluna) return;
-
-  // 🔑 Se não houver dados, usa os jogadores padrão
-  const jogadores =
-    JSON.parse(localStorage.getItem("jogadores")) || jogadoresPadrao;
-
-  const turno = Number(localStorage.getItem("turno") || 0);
-
   coluna.innerHTML = "";
 
-  jogadores.forEach((j, i) => {
+  ordem.forEach((p) => {
     const div = document.createElement("div");
-    div.className = "portrait" + (i === turno ? " ativo" : "");
+    div.className = "portrait";
 
     const img = document.createElement("img");
-    img.src = j.img;
+    img.src = p.img;
+    img.alt = p.nome;
 
     div.appendChild(img);
     coluna.appendChild(div);
@@ -69,7 +88,19 @@ function render() {
 }
 
 /* =========================
-   LOOP DE ATUALIZAÇÃO
+   ATIVA COM TRANSIÇÃO (OBS FIX)
    ========================= */
+function ativar(index) {
+  const portraits = document.querySelectorAll(".portrait");
 
-setInterval(render, 100);
+  portraits.forEach((p) => p.classList.remove("ativo"));
+
+  // FORÇA O OBS A RENDERIZAR O ESTADO BASE
+  if (portraits[index]) {
+    void portraits[index].offsetWidth;
+
+    setTimeout(() => {
+      portraits[index].classList.add("ativo");
+    }, 50); // delay essencial para o OBS
+  }
+}
