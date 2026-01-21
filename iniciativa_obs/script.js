@@ -1,3 +1,18 @@
+/* =========================
+   DADOS PADRÃO (ANTI-TELA VAZIA)
+   ========================= */
+
+const jogadoresPadrao = [
+  { nome: "Jogador 1", rolagem: 0, img: "portraits/p1.png" },
+  { nome: "Jogador 2", rolagem: 0, img: "portraits/p2.png" },
+  { nome: "Jogador 3", rolagem: 0, img: "portraits/p3.png" },
+  { nome: "Jogador 4", rolagem: 0, img: "portraits/p4.png" }
+];
+
+/* =========================
+   SALVAR ORDEM (CONTROLE)
+   ========================= */
+
 function salvar() {
   let jogadores = [];
 
@@ -15,18 +30,27 @@ function salvar() {
   localStorage.setItem("turno", "0");
 }
 
+/* =========================
+   PRÓXIMO TURNO
+   ========================= */
+
 function proximo() {
   let turno = Number(localStorage.getItem("turno") || 0);
   turno = (turno + 1) % 4;
   localStorage.setItem("turno", turno.toString());
 }
 
+/* =========================
+   RENDER (VISUALIZADOR)
+   ========================= */
+
 function render() {
   const coluna = document.getElementById("coluna");
   if (!coluna) return;
 
-  const jogadores = JSON.parse(localStorage.getItem("jogadores"));
-  if (!jogadores) return;
+  // 🔑 Se não houver dados, usa os jogadores padrão
+  const jogadores =
+    JSON.parse(localStorage.getItem("jogadores")) || jogadoresPadrao;
 
   const turno = Number(localStorage.getItem("turno") || 0);
 
@@ -43,5 +67,9 @@ function render() {
     coluna.appendChild(div);
   });
 }
+
+/* =========================
+   LOOP DE ATUALIZAÇÃO
+   ========================= */
 
 setInterval(render, 100);
