@@ -1,30 +1,22 @@
-/* =========================
-   BASE
-   ========================= */
-
+/* ===== BASE ===== */
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: system-ui, sans-serif;
 }
 
-/* =========================
-   VISUALIZADOR (OBS)
-   ========================= */
-
+/* ===== VISUALIZADOR ===== */
 body.obs {
   background: transparent;
 }
 
-/* coluna centralizada */
 #coluna {
   height: 1080px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  align-items: center; /* CENTRALIZA */
+  align-items: center;
 }
 
-/* estado base */
 .portrait {
   width: 220px;
   opacity: 0.25;
@@ -41,160 +33,74 @@ body.obs {
   border-radius: 14px;
 }
 
-/* jogador ativo */
-.ativo {
+.portrait.ativo {
   opacity: 1;
   filter: grayscale(0%) brightness(1);
   transform: scale(1.25);
 }
 
-/* =========================
-   CONTROLE – LISTA 600x1080
-   ========================= */
-
-body.controle-ui.lista {
+/* ===== CONTROLE ===== */
+body.controle-ui {
   background: #0e0e13;
-  color: #ffffff;
+  color: white;
   width: 600px;
-  height: 1080px; /* ALTERADO */
-  margin: 0 auto;
-  padding: 24px 20px;
+  height: 1080px;
+  padding: 20px;
   box-sizing: border-box;
-  overflow-y: auto;
 }
 
 h1 {
   text-align: center;
-  margin-bottom: 22px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
 }
 
-/* Lista vertical */
 .lista-cards {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
-/* =========================
-   CARD DO JOGADOR
-   ========================= */
-
 .card-horizontal {
-  position: relative;
+  display: flex;
+  gap: 12px;
+  padding: 14px;
   background: #171720;
   border-radius: 16px;
-  padding: 14px;
-  display: flex;
-  gap: 14px;
-  align-items: center;
   border-left: 4px solid #7a1f1f;
 }
-
-/* contorno interno sutil */
-.card-horizontal::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 16px;
-  box-shadow: inset 0 0 0 1px rgba(160,40,40,0.25);
-  pointer-events: none;
-}
-
-/* =========================
-   PORTRAIT (MENOR)
-   ========================= */
 
 .card-horizontal img {
   width: 64px;
   height: 64px;
-  object-fit: cover;
   border-radius: 10px;
-  flex-shrink: 0;
-  opacity: 0.9;
 }
 
-/* =========================
-   CAMPOS
-   ========================= */
-
 .campos {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  flex: 1;
 }
-
-/* nome */
-.campos input:nth-child(1) {
-  font-size: 15px;
-  font-weight: 500;
-}
-
-/* rolagem */
-.campos input:nth-child(2) {
-  width: 120px;
-  font-size: 14px;
-}
-
-/* path da imagem */
-.campos input:nth-child(3) {
-  font-size: 12px;
-  opacity: 0.65;
-}
-
-/* =========================
-   INPUTS
-   ========================= */
 
 .campos input {
   background: #242432;
   border: none;
-  padding: 9px 11px;
-  color: #ffffff;
+  padding: 8px 10px;
+  color: white;
   border-radius: 10px;
-  outline: none;
 }
 
-.campos input::placeholder {
-  color: #9a9ab0;
-}
-
-.campos input:focus {
-  box-shadow: 0 0 0 2px rgba(180,60,60,0.4);
-}
-
-/* =========================
-   BOTÕES FIXOS
-   ========================= */
-
-.botoes.fixo {
-  position: sticky;
-  bottom: 0;
-  background: linear-gradient(transparent, #0e0e13 45%);
-  padding: 18px 0;
+.botoes {
+  margin-top: 16px;
   display: flex;
   justify-content: center;
-  gap: 16px;
+  gap: 12px;
 }
 
 button {
-  padding: 12px 26px;
+  padding: 12px 22px;
   border-radius: 14px;
   border: none;
   cursor: pointer;
   background: linear-gradient(135deg, #7a1f1f, #b83b3b);
-  color: #ffffff;
-  font-size: 15px;
-  font-weight: 500;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-button:hover {
-  box-shadow: 0 6px 18px rgba(180,60,60,0.45);
-}
-
-button:active {
-  transform: scale(0.97);
+  color: white;
 }
