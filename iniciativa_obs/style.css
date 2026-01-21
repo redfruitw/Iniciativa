@@ -15,21 +15,25 @@ body.obs {
   background: transparent;
 }
 
+/* coluna centralizada */
 #coluna {
   height: 1080px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: center; /* CENTRALIZA */
 }
 
+/* estado base */
 .portrait {
   width: 220px;
-  opacity: 0.35;
-  transform: translateX(0) scale(0.95);
+  opacity: 0.25;
+  filter: grayscale(100%) brightness(0.6);
+  transform: scale(0.85);
   transition:
-    transform 0.45s cubic-bezier(.25,.8,.25,1),
-    opacity 0.45s ease;
+    transform 3s ease,
+    opacity 3s ease,
+    filter 3s ease;
 }
 
 .portrait img {
@@ -37,29 +41,31 @@ body.obs {
   border-radius: 14px;
 }
 
+/* jogador ativo */
 .ativo {
   opacity: 1;
-  transform: translateX(40px) scale(1.3);
+  filter: grayscale(0%) brightness(1);
+  transform: scale(1.25);
 }
 
 /* =========================
-   CONTROLE – LISTA 600x1920
+   CONTROLE – LISTA 600x1080
    ========================= */
 
 body.controle-ui.lista {
   background: #0e0e13;
   color: #ffffff;
   width: 600px;
-  height: 1920px;
+  height: 1080px; /* ALTERADO */
   margin: 0 auto;
-  padding: 28px 20px;
+  padding: 24px 20px;
   box-sizing: border-box;
   overflow-y: auto;
 }
 
 h1 {
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 22px;
   font-weight: 600;
   letter-spacing: 0.5px;
 }
@@ -68,7 +74,7 @@ h1 {
 .lista-cards {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 14px;
 }
 
 /* =========================
@@ -79,14 +85,14 @@ h1 {
   position: relative;
   background: #171720;
   border-radius: 16px;
-  padding: 16px;
+  padding: 14px;
   display: flex;
-  gap: 16px;
+  gap: 14px;
   align-items: center;
-  border-left: 4px solid #7a1f1f; /* detalhe vermelho */
+  border-left: 4px solid #7a1f1f;
 }
 
-/* faixa vermelha sutil */
+/* contorno interno sutil */
 .card-horizontal::after {
   content: "";
   position: absolute;
@@ -97,12 +103,12 @@ h1 {
 }
 
 /* =========================
-   PORTRAIT (MENOR E CONTIDO)
+   PORTRAIT (MENOR)
    ========================= */
 
 .card-horizontal img {
-  width: 72px;
-  height: 72px;
+  width: 64px;
+  height: 64px;
   object-fit: cover;
   border-radius: 10px;
   flex-shrink: 0;
@@ -110,42 +116,42 @@ h1 {
 }
 
 /* =========================
-   CAMPOS (HIERARQUIA)
+   CAMPOS
    ========================= */
 
 .campos {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   flex: 1;
 }
 
-/* Nome (mais importante) */
+/* nome */
 .campos input:nth-child(1) {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
 }
 
-/* Rolagem */
+/* rolagem */
 .campos input:nth-child(2) {
-  width: 140px;
+  width: 120px;
   font-size: 14px;
 }
 
-/* Caminho da imagem (menos destaque) */
+/* path da imagem */
 .campos input:nth-child(3) {
   font-size: 12px;
-  opacity: 0.7;
+  opacity: 0.65;
 }
 
 /* =========================
-   INPUTS (MENOS RÚSTICOS)
+   INPUTS
    ========================= */
 
 .campos input {
   background: #242432;
   border: none;
-  padding: 10px 12px;
+  padding: 9px 11px;
   color: #ffffff;
   border-radius: 10px;
   outline: none;
@@ -160,33 +166,33 @@ h1 {
 }
 
 /* =========================
-   BOTÕES FIXOS (SUAVES)
+   BOTÕES FIXOS
    ========================= */
 
 .botoes.fixo {
   position: sticky;
   bottom: 0;
   background: linear-gradient(transparent, #0e0e13 45%);
-  padding: 24px 0;
+  padding: 18px 0;
   display: flex;
   justify-content: center;
-  gap: 18px;
+  gap: 16px;
 }
 
 button {
-  padding: 14px 28px;
+  padding: 12px 26px;
   border-radius: 14px;
   border: none;
   cursor: pointer;
   background: linear-gradient(135deg, #7a1f1f, #b83b3b);
   color: #ffffff;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 button:hover {
-  box-shadow: 0 8px 24px rgba(180,60,60,0.45);
+  box-shadow: 0 6px 18px rgba(180,60,60,0.45);
 }
 
 button:active {
