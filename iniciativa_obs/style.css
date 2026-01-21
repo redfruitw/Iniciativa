@@ -19,14 +19,14 @@ body.obs {
 
 .portrait {
   width: 220px;
-  opacity: 0.25;
-  filter: grayscale(100%) brightness(0.6);
-  transform: scale(0.85);
+  opacity: 1; /* 100% OPACIDADE */
+  filter: grayscale(100%);
+  transform: scale(0.9);
   transition:
     transform 3s ease,
-    opacity 3s ease,
     filter 3s ease;
 }
+
 
 .portrait img {
   width: 100%;
@@ -104,3 +104,4 @@ button {
   background: linear-gradient(135deg, #7a1f1f, #b83b3b);
   color: white;
 }
+
