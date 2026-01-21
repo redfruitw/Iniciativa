@@ -5,43 +5,52 @@
 <title>Controle de Iniciativa</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<body class="controle-ui">
+
+<body class="controle-ui lista">
 
 <h1>Iniciativa</h1>
 
-<div class="controle-cards">
+<div class="lista-cards">
 
-  <div class="card">
+  <div class="card-horizontal">
     <img src="portraits/p1.png">
-    <input id="n0" placeholder="Nome" value="Jogador 1">
-    <input id="r0" type="number" placeholder="Rolagem" value="15">
-    <input id="i0" value="portraits/p1.png">
+    <div class="campos">
+      <input id="n0" value="Jogador 1" placeholder="Nome">
+      <input id="r0" type="number" value="15" placeholder="Rolagem">
+      <input id="i0" value="portraits/p1.png">
+    </div>
   </div>
 
-  <div class="card">
+  <div class="card-horizontal">
     <img src="portraits/p2.png">
-    <input id="n1" placeholder="Nome" value="Jogador 2">
-    <input id="r1" type="number" placeholder="Rolagem" value="12">
-    <input id="i1" value="portraits/p2.png">
+    <div class="campos">
+      <input id="n1" value="Jogador 2" placeholder="Nome">
+      <input id="r1" type="number" value="12" placeholder="Rolagem">
+      <input id="i1" value="portraits/p2.png">
+    </div>
   </div>
 
-  <div class="card">
+  <div class="card-horizontal">
     <img src="portraits/p3.png">
-    <input id="n2" placeholder="Nome" value="Jogador 3">
-    <input id="r2" type="number" placeholder="Rolagem" value="18">
-    <input id="i2" value="portraits/p3.png">
+    <div class="campos">
+      <input id="n2" value="Jogador 3" placeholder="Nome">
+      <input id="r2" type="number" value="18" placeholder="Rolagem">
+      <input id="i2" value="portraits/p3.png">
+    </div>
   </div>
 
-  <div class="card">
+  <div class="card-horizontal">
     <img src="portraits/p4.png">
-    <input id="n3" placeholder="Nome" value="Jogador 4">
-    <input id="r3" type="number" placeholder="Rolagem" value="10">
-    <input id="i3" value="portraits/p4.png">
+    <div class="campos">
+      <input id="n3" value="Jogador 4" placeholder="Nome">
+      <input id="r3" type="number" value="10" placeholder="Rolagem">
+      <input id="i3" value="portraits/p4.png">
+    </div>
   </div>
 
 </div>
 
-<div class="botoes">
+<div class="botoes fixo">
   <button onclick="salvar()">Salvar Ordem</button>
   <button onclick="proximo()">Próximo Turno</button>
 </div>
