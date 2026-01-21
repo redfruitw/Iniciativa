@@ -38,16 +38,6 @@ body.obs {
   border-radius: 14px;
 }
 
-/* Jogador ativo */
-.ativo {
-  opacity: 1;
-  transform: translateX(40px) scale(1.3);
-}
-
-.ativo img {
-  box-shadow: 0 0 30px rgba(120, 100, 255, 0.6);
-}
-
 /* =========================
    CONTROLE (UI)
    ========================= */
@@ -126,3 +116,4 @@ button:hover {
 button:active {
   transform: scale(0.97);
 }
+
